@@ -128,21 +128,38 @@ bool removeByUsername(User*& head, const string& username) {
 // Deletes ALL nodes and sets head=nullptr. 
 void clearList(User*& head) {
     // TODO: implement
-    
+
+    while(head != nullptr) {
+	User* temp = head;
+	head = head->next;
+	delete temp;
+  }
+	head = nullptr;
 }
 
 // Returns number of nodes.
 size_t size(User* head) {
     // TODO: implement
-    
-    return 0;
+    User* temp = head;
+    size_t counter = 0;
+	while(temp != nullptr) {
+		counter++;
+		temp = temp->next;
+     }
+    return counter;
 }
 
 // Prints usernames in order, separated by " -> " then " -> NULL".
 // Example: alice -> bob -> charlie -> NULL
 void printUsers(User* head) {
     // TODO: implement
-    
+    User* temp = head;
+    cout << "Head: " << head << " -> ";
+	while(temp != nullptr) {
+		cout << temp->username << " -> ";
+		temp = temp->next;
+      }
+		cout << " NULL";
 }
 
 
