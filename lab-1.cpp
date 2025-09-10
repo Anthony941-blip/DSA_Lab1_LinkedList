@@ -73,26 +73,36 @@ User* findUser(User* head, const string& username) {
 // Returns true if (username, password) matches an existing node; false otherwise.
 bool authenticate(User* head, const string& username, const string& password) {
     // TODO: implement
-   
-    return false;
-}
+
+   User* user = findUser(head,username);
+	if(user == nullptr) {
+ 	   return false;
+	}
+              if(user->password == password) {
+		return true;
+        }
+		return false;
+    }
 
 // Deletes the FIRST node (head) and updates head. No-op if list is empty.
 // Return true if a node was deleted, false otherwise.
 bool removeFront(User*& head) {
     // TODO: implement
-    
-    return false;
+    if(head == nullptr) {
+   	 return false;
+   }else{
+    User* temp = head;
+    head = head->next;
+    delete temp;
+    return true;
+  }
 }
 
 // Deletes the node with matching username (first match only).
 // Return true if a node was found & deleted; false if not found.
 bool removeByUsername(User*& head, const string& username) {
-    // TODO: implement
-    
-    return false;
-}
 
+}
 // Deletes ALL nodes and sets head=nullptr. 
 void clearList(User*& head) {
     // TODO: implement
