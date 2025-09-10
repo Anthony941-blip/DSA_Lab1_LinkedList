@@ -34,14 +34,39 @@ using namespace std;
 // Otherwise insert and return true.
 bool insertUser(User*& head, const string& username, const string& password) {
     // TODO: implement
-   
-    return false;
-}
+	User* temp = head;
+        while(temp != nullptr) {
+           if(temp->username == username) {
+            return false;
+         }
+	 temp = temp->next;
+      }
+
+	User* newUser = new User(username, pasword);
+
+	if(head == nullptr) {
+		head = newUser;
+	} else {
+	   temp = head;
+	   while (temp->next !=nullptr) {
+		temp = temp->next;
+       }
+	temp->next = newUser;
+    }
+	return true;
+  }
 
 // Returns pointer to the node with matching username; otherwise nullptr.
 User* findUser(User* head, const string& username) {
     // TODO: implement
-    
+    User* temp = head;
+
+    while(temp != nullptr) {
+		if(temp->username == username) {
+			return temp;
+           }
+            	temp = temp->next;
+}
     return nullptr;
 }
 
