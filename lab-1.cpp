@@ -42,7 +42,7 @@ bool insertUser(User*& head, const string& username, const string& password) {
 	 temp = temp->next;
       }
 
-	User* newUser = new User(username, pasword);
+	User* newUser = new User(username, password);
 
 	if(head == nullptr) {
 		head = newUser;
