@@ -15,6 +15,7 @@ using namespace std;
 
   bool insertUser(User*& head, const string& username, const string& password);
   User* findUser(User* head, const string& username);
+  bool authenticate(User*head, const string& username, const string& password);
   bool removeFront(User*& head);
   bool removeByUsername(User*& head, const string& username);
   void clearList(User*& head);
@@ -38,7 +39,8 @@ using namespace std;
         cout << "5. Clear the list\n";
 	cout << "6. List Size\n";
 	cout << "7. Print Users\n";
-        cout << "8. Exit\n";
+	cout << "8. Authenticate\n";
+        cout << "9. Exit\n";
         cout << "Enter choice: ";
         cin >> choice;
         cin.ignore();
@@ -73,7 +75,10 @@ using namespace std;
 	   case 7: 
 		printUsers(head);
 		break;
-    } while (choice != 8);
+	   case 8:
+		authenticate(head, username, password);
+		break;
+    } while (choice != 9);
 
 	return 0;
    }
@@ -93,6 +98,7 @@ bool insertUser(User*& head, const string& username, const string& password) {
          }
 	 temp = temp->next;
       }
+
 
 	User* newUser = new User(username, password);
 
@@ -213,5 +219,6 @@ void printUsers(User* head) {
       }
 		cout << " NULL";
 }
+
 
 
