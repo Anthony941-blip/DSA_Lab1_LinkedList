@@ -56,30 +56,43 @@ using namespace std;
             case 2:
                 cout << "Enter username: ";
                 getline(cin, username);
-                cout << "Enter password: ";
-                getline(cin, password);
+                User* user = findUser(head, username);
+		if (user) {
+			cout << "User found: " << user->username << endl;
+	   } else {
+			cout << "User not found.\n";
+	   }
                 findUser(head, username);
                 break;
             case 3:
                 removeFront(head);
                 break;
             case 4:
+		cout << "Enter username to remove: ";
+		getline(cin,username);
                 removeByUsername(head,username);
                 break;
             case 5:
                 clearList(head);
                 break;
 	   case 6:
-	       size(head);
+		cout << "List size: " << size(head) << endl;
 		break;
 	   case 7: 
 		printUsers(head);
 		break;
 	   case 8:
-		authenticate(head, username, password);
+		cout << "Enter username: ";
+		getline(cin, username);
+		cout << "Enter password: ";
+		if(authenticate(head, username, password)) {
+		cout << "Authentication successful\n";
+	} else {
+		cout "Authentication failed! \n";
+	}
 		break;
     } while (choice != 9);
-	 clearlist(head);
+	 clearList(head);
 
 	return 0;
    }
