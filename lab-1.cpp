@@ -29,7 +29,7 @@ using namespace std;
     // Sample menu-driven interface
     // You can put this into its own function if your wish
     int choice;
-    string name, phone;
+    string username, password;
     do {
         cout << "\nContact List Menu:\n";
         cout << "1. Insert at End\n";
@@ -47,17 +47,17 @@ using namespace std;
 
         switch (choice) {
             case 1:
-                cout << "Enter name: ";
-                getline(cin, name);
-                cout << "Enter phone: ";
-                getline(cin, phone);
+                cout << "Enter username: ";
+                getline(cin, username);
+                cout << "Enter password: ";
+                getline(cin, password);
                 insertUser(head, username, password);
                 break;
             case 2:
-                cout << "Enter name: ";
-                getline(cin, name);
-                cout << "Enter phone: ";
-                getline(cin, phone);
+                cout << "Enter username: ";
+                getline(cin, username);
+                cout << "Enter password: ";
+                getline(cin, password);
                 findUser(head, username);
                 break;
             case 3:
@@ -79,6 +79,7 @@ using namespace std;
 		authenticate(head, username, password);
 		break;
     } while (choice != 9);
+	 clearlist(head);
 
 	return 0;
    }
