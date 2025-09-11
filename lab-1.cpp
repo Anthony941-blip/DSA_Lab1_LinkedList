@@ -23,6 +23,58 @@ using namespace std;
 
     int main() {
 
+	   User* head = nullptr;
+
+    // Sample menu-driven interface
+    // You can put this into its own function if your wish
+    int choice;
+    string name, phone;
+    do {
+        cout << "\nContact List Menu:\n";
+        cout << "1. Insert at End\n";
+        cout << "2. Find User\n";
+        cout << "3. Remove front\n";
+        cout << "4. Remove by Username\n";
+        cout << "5. Clear the list\n";
+	cout << "6. List Size\n";
+	cout << "7. Print Users\n";
+        cout << "8. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+        cin.ignore();
+
+        switch (choice) {
+            case 1:
+                cout << "Enter name: ";
+                getline(cin, name);
+                cout << "Enter phone: ";
+                getline(cin, phone);
+                insertUser(head, username, password);
+                break;
+            case 2:
+                cout << "Enter name: ";
+                getline(cin, name);
+                cout << "Enter phone: ";
+                getline(cin, phone);
+                findUser(head, username);
+                break;
+            case 3:
+                removeFront(head);
+                break;
+            case 4:
+                removeByUsername(head,username);
+                break;
+            case 5:
+                clearList(head);
+                break;
+	   case 6:
+	       size(head);
+		break;
+	   case 7: 
+		printUsers(head);
+		break;
+    } while (choice != 8);
+
 	return 0;
    }
 // -----------------------------
