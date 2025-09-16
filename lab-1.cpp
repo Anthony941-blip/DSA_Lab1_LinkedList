@@ -1,35 +1,32 @@
 #include <iostream>
 using namespace std;
 
-	struct User { 
-		string username; 
-		string password; 
-		User* next;
- 
-	User(string u, string p) { 
-		username = u; 
-		password = p; 
-		next = nullptr; 
-	    } 
-	};
+struct User {
+    string username;
+    string password;
+    User* next;
 
-  bool insertUser(User*& head, const string& username, const string& password);
-  User* findUser(User* head, const string& username);
-  bool authenticate(User*head, const string& username, const string& password);
-  bool removeFront(User*& head);
-  bool removeByUsername(User*& head, const string& username);
-  void clearList(User*& head);
-  size_t size(User* head);
-  void printUsers(User* head);
+    User(string u, string p) {
+        username = u;
+        password = p;
+        next = nullptr;
+    }
+};
 
-    int main() {
+bool insertUser(User*& head, const string& username, const string& password);
+User* findUser(User* head, const string& username);
+bool authenticate(User* head, const string& username, const string& password);
+bool removeFront(User*& head);
+bool removeByUsername(User*& head, const string& username);
+void clearList(User*& head);
+size_t size(User* head);
+void printUsers(User* head);
 
-	   User* head = nullptr;
-
-    // Sample menu-driven interface
-    // You can put this into its own function if your wish
+int main() {
+    User* head = nullptr;
     int choice;
     string username, password;
+
     do {
         cout << "\nContact List Menu:\n";
         cout << "1. Insert at End\n";
@@ -37,202 +34,175 @@ using namespace std;
         cout << "3. Remove front\n";
         cout << "4. Remove by Username\n";
         cout << "5. Clear the list\n";
-	cout << "6. List Size\n";
-	cout << "7. Print Users\n";
-	cout << "8. Authenticate\n";
+        cout << "6. List Size\n";
+        cout << "7. Print Users\n";
+        cout << "8. Authenticate\n";
         cout << "9. Exit\n";
         cout << "Enter choice: ";
         cin >> choice;
         cin.ignore();
 
         switch (choice) {
-            case 1:
+            case 1: {
                 cout << "Enter username: ";
                 getline(cin, username);
                 cout << "Enter password: ";
                 getline(cin, password);
                 insertUser(head, username, password);
                 break;
-            case 2:
+            }
+            case 2: {
                 cout << "Enter username: ";
                 getline(cin, username);
                 User* user = findUser(head, username);
-		if (user) {
-			cout << "User found: " << user->username << endl;
-	   } else {
-			cout << "User not found.\n";
-	   }
-                findUser(head, username);
+                if (user) {
+                    cout << "User found: " << user->username << endl;
+                } else {
+                    cout << "User not found.\n";
+                }
                 break;
-            case 3:
+            }
+            case 3: {
                 removeFront(head);
                 break;
-            case 4:
-		cout << "Enter username to remove: ";
-		getline(cin,username);
-                removeByUsername(head,username);
+            }
+            case 4: {
+                cout << "Enter username to remove: ";
+                getline(cin, username);
+                removeByUsername(head, username);
                 break;
-            case 5:
+            }
+            case 5: {
                 clearList(head);
                 break;
-	   case 6:
-		cout << "List size: " << size(head) << endl;
-		break;
-	   case 7: 
-		printUsers(head);
-		break;
-	   case 8:
-		cout << "Enter username: ";
-		getline(cin, username);
-		cout << "Enter password: ";
-		if(authenticate(head, username, password)) {
-		cout << "Authentication successful\n";
-	} else {
-		cout "Authentication failed! \n";
-	}
-		break;
+            }
+            case 6: {
+                cout << "List size: " << size(head) << endl;
+                break;
+            }
+            case 7: {
+                printUsers(head);
+                break;
+            }
+            case 8: {
+                cout << "Enter username: ";
+                getline(cin, username);
+                cout << "Enter password: ";
+                getline(cin, password);
+                if (authenticate(head, username, password)) {
+                    cout << "Authentication successful\n";
+                } else {
+                    cout << "Authentication failed! \n";
+                }
+                break;
+            }
+        }
     } while (choice != 9);
-	 clearList(head);
 
-	return 0;
-   }
-// -----------------------------
-// Core API — implement these
-// -----------------------------
-
-// Inserts a new (username, password) at the END of the list.
-// If username already exists, do NOT insert a duplicate; return false.
-// Otherwise insert and return true.
-bool insertUser(User*& head, const string& username, const string& password) {
-    // TODO: implement
-	User* temp = head;
-        while(temp != nullptr) {
-           if(temp->username == username) {
-            return false;
-         }
-	 temp = temp->next;
-      }
-
-
-	User* newUser = new User(username, password);
-
-	if(head == nullptr) {
-		head = newUser;
-	} else {
-	   temp = head;
-	   while (temp->next !=nullptr) {
-		temp = temp->next;
-       }
-	temp->next = newUser;
-    }
-	return true;
-  }
-
-// Returns pointer to the node with matching username; otherwise nullptr.
-User* findUser(User* head, const string& username) {
-    // TODO: implement
-    User* temp = head;
-
-    while(temp != nullptr) {
-		if(temp->username == username) {
-			return temp;
-           }
-            	temp = temp->next;
+    clearList(head);
+    return 0;
 }
+
+// -----------------------------
+// Core API Implementation
+// -----------------------------
+
+bool insertUser(User*& head, const string& username, const string& password) {
+    User* temp = head;
+    while (temp != nullptr) {
+        if (temp->username == username) {
+            return false; // no duplicates
+        }
+        temp = temp->next;
+    }
+
+    User* newUser = new User(username, password);
+
+    if (head == nullptr) {
+        head = newUser;
+    } else {
+        temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = newUser;
+    }
+    return true;
+}
+
+User* findUser(User* head, const string& username) {
+    User* temp = head;
+    while (temp != nullptr) {
+        if (temp->username == username) {
+            return temp;
+        }
+        temp = temp->next;
+    }
     return nullptr;
 }
 
-// Returns true if (username, password) matches an existing node; false otherwise.
 bool authenticate(User* head, const string& username, const string& password) {
-    // TODO: implement
+    User* user = findUser(head, username);
+    return (user != nullptr && user->password == password);
+}
 
-   User* user = findUser(head,username);
-	if(user == nullptr) {
- 	   return false;
-	}
-              if(user->password == password) {
-		return true;
-        }
-		return false;
-    }
-
-// Deletes the FIRST node (head) and updates head. No-op if list is empty.
-// Return true if a node was deleted, false otherwise.
 bool removeFront(User*& head) {
-    // TODO: implement
-    if(head == nullptr) {
-   	 return false;
-   }else{
+    if (head == nullptr) {
+        return false;
+    }
     User* temp = head;
     head = head->next;
     delete temp;
     return true;
-  }
 }
 
-// Deletes the node with matching username (first match only).
-// Return true if a node was found & deleted; false if not found.
 bool removeByUsername(User*& head, const string& username) {
-	if(head == nullptr) {
-		return false;
-       }
-	if(head->username  == username) {
-		return removeFront(head);
-       }
+    if (head == nullptr) return false;
 
-      User* previous = head;
-      User* current = head->next;
+    if (head->username == username) {
+        return removeFront(head);
+    }
 
-	while(current != nullptr) {
+    User* previous = head;
+    User* current = head->next;
 
-	  if(current->username == username) {
-
-	   previous->next = current->next;
-	   delete current;
-	   return true;
+    while (current != nullptr) {
+        if (current->username == username) {
+            previous->next = current->next;
+            delete current;
+            return true;
         }
-	  previous = current;
-	  current = current->next;
-      }
+        previous = current;
+        current = current->next;
+    }
 
-      return false;
+    return false;
 }
-// Deletes ALL nodes and sets head=nullptr. 
+
 void clearList(User*& head) {
-    // TODO: implement
-
-    while(head != nullptr) {
-	User* temp = head;
-	head = head->next;
-	delete temp;
-  }
-	head = nullptr;
+    while (head != nullptr) {
+        User* temp = head;
+        head = head->next;
+        delete temp;
+    }
+    head = nullptr;
 }
 
-// Returns number of nodes.
 size_t size(User* head) {
-    // TODO: implement
-    User* temp = head;
     size_t counter = 0;
-	while(temp != nullptr) {
-		counter++;
-		temp = temp->next;
-     }
+    User* temp = head;
+    while (temp != nullptr) {
+        counter++;
+        temp = temp->next;
+    }
     return counter;
 }
 
-// Prints usernames in order, separated by " -> " then " -> NULL".
-// Example: alice -> bob -> charlie -> NULL
 void printUsers(User* head) {
-    // TODO: implement
     User* temp = head;
-    cout << "Head: " << head << " -> ";
-	while(temp != nullptr) {
-		cout << temp->username << " -> ";
-		temp = temp->next;
-      }
-		cout << " NULL";
+    while (temp != nullptr) {
+        cout << temp->username << " -> ";
+        temp = temp->next;
+    }
+    cout << "NULL\n";
 }
-
-
-
